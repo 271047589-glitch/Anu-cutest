@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANU CUTEST</title>
+  <meta name="description" content="A small private corner made with care.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Parisienne&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fff8fb;
+      --panel: rgba(255,255,255,.82);
+      --line: rgba(214,125,151,.20);
+      --text: #4a2634;
+      --muted: #856773;
+      --rose: #d66f92;
+      --gold: #c18a9d;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,190,211,.42), transparent 30%),
+        radial-gradient(circle at 90% 35%, rgba(246,213,226,.55), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 10;
+      background-image:
+        radial-gradient(circle, rgba(214,111,146,.38) 0 1px, transparent 1.5px);
+      background-size: 150px 150px;
+      opacity: .13;
+      animation: drift 20s linear infinite;
+    }
+    @keyframes drift { from { transform: translateY(0); } to { transform: translateY(150px); } }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 5vw;
+      backdrop-filter: blur(14px);
+      background: rgba(255,248,251,.76);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .brand { font-family: Parisienne, cursive; font-size: 28px; color: var(--rose); }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 22px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    nav a:hover { color: white; }
+
+    .music {
+      position: fixed; right: 22px; bottom: 22px; z-index: 30;
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px 10px 10px; border: 2px solid var(--rose);
+      border-radius: 999px; background: #fff;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(214,111,146,.28);
+    }
+    .music button {
+      border: 0; background: var(--rose); color: white; cursor: pointer;
+      font-size: 18px; width: 40px; height: 40px; border-radius: 50%;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 4px 12px rgba(214,111,146,.28);
+    }
+    .music span { font-size: 12px; color: #6f3048; font-weight: 600; }
+    audio { display: none; }
+
+    section { width: min(var(--max), 90vw); margin: auto; padding: 110px 0; }
+    .hero {
+      min-height: 100vh; display: grid; place-items: center; text-align: center;
+      padding-top: 110px;
+    }
+    .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: .25em; font-size: 11px; }
+    h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(62px, 11vw, 140px); line-height: .82;
+      font-weight: 500; margin: 28px 0;
+    }
+    .script { font-family: Parisienne, cursive; color: var(--rose); font-size: clamp(34px, 5vw, 62px); }
+    .hero p { max-width: 570px; margin: 28px auto 0; color: var(--muted); font-size: 15px; }
+    .scroll { margin-top: 55px; color: #888; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
+    .scroll::after { content: "↓"; display: block; font-size: 22px; margin-top: 8px; color: var(--rose); }
+
+    .section-title { font-family: "Cormorant Garamond", serif; font-size: clamp(42px, 6vw, 72px); font-weight: 500; line-height: 1; }
+    .section-title small { display:block; color: var(--gold); font: 11px Inter, sans-serif; letter-spacing: .22em; text-transform: uppercase; margin-bottom: 15px; }
+    .copy { color: var(--muted); max-width: 720px; margin-top: 25px; font-size: 16px; }
+    .center { text-align: center; margin-inline: auto; }
+
+    .letter {
+      margin-top: 50px; padding: clamp(28px, 5vw, 58px);
+      border: 1px solid var(--line); background: var(--panel);
+      border-radius: 22px; box-shadow: 0 30px 100px rgba(0,0,0,.22);
+    }
+    .letter p { color: #ddd5ce; margin-bottom: 18px; font-family: "Cormorant Garamond", serif; font-size: 23px; line-height: 1.5; }
+    .signature { font-family: Parisienne, cursive; color: var(--rose); font-size: 35px; margin-top: 28px; }
+
+    .photos { display:grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+    .photo-card { overflow:hidden; border-radius: 20px; border: 1px solid var(--line); background: var(--panel); }
+    .photo-card img { display:block; width:100%; height:520px; object-fit:cover; transition: transform .8s ease; }
+    .photo-card:hover img { transform: scale(1.035); }
+    .image-error::before { content:"Photo could not be loaded — keep the assets folder beside index.html."; display:flex; align-items:center; justify-content:center; min-height:300px; padding:30px; color:#856773; text-align:center; font-size:13px; }\n    .photo-caption { padding: 18px 20px 22px; color: var(--muted); font-size: 12px; letter-spacing:.03em; }
+
+    .letters-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:16px; margin-top:48px; }
+    .envelope {
+      min-height: 170px; border:1px solid var(--line); border-radius:18px;
+      background:rgba(255,255,255,.72); padding:25px; cursor:pointer;
+      transition:.3s; position:relative;
+    }
+    .envelope:hover { transform:translateY(-6px); border-color:rgba(217,166,169,.5); }
+    .envelope .num { color:var(--gold); font-size:10px; letter-spacing:.18em; }
+    .envelope h3 { font-family:"Cormorant Garamond",serif; font-size:28px; font-weight:500; margin-top:14px; }
+    .envelope p { color:#99939a; font-size:12px; margin-top:8px; }
+    .modal {
+      position:fixed; inset:0; z-index:50; display:none; place-items:center;
+      background:rgba(0,0,0,.78); backdrop-filter:blur(10px); padding:20px;
+    }
+    .modal.open { display:grid; }
+    .modal-box { max-width:650px; max-height:85vh; overflow:auto; padding:45px; border:1px solid var(--line); border-radius:22px; background:#fff8fb; position:relative; }
+    .close { position:absolute; right:18px; top:12px; border:0; background:none; color:#856773; font-size:26px; cursor:pointer; }
+    .modal-box h2 { font-family:"Cormorant Garamond",serif; font-size:46px; font-weight:500; }
+    .modal-box p { color:#765b68; margin-top:20px; }
+
+    .stars { position:relative; height:430px; margin-top:45px; overflow:hidden; border:1px solid var(--line); border-radius:22px; background:radial-gradient(circle at center, #fff0f6, #fffafd 70%); }
+    .star { position:absolute; width:5px; height:5px; border-radius:50%; background:#fff; box-shadow:0 0 14px rgba(255,255,255,.8); cursor:pointer; animation:twinkle 2s infinite alternate; }
+    @keyframes twinkle { to { opacity:.25; transform:scale(.65); } }
+    .star-hint { position:absolute; bottom:20px; left:0; right:0; text-align:center; color:#aaa; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+
+    .question-card {
+      margin-top:45px; padding:38px; text-align:center;
+      border:1px solid var(--line); border-radius:22px;
+      background:rgba(255,255,255,.82);
+      box-shadow:0 25px 80px rgba(180,90,120,.10);
+    }
+    .question-sub { color:var(--muted); font-size:14px; margin-bottom:25px; }
+    .answer-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+    .answer-btn {
+      border:1px solid rgba(214,111,146,.35); background:#fff;
+      color:#7a3d55; border-radius:999px; padding:13px 23px;
+      cursor:pointer; font:500 13px Inter,sans-serif; transition:.25s;
+    }
+    .answer-btn:hover { transform:translateY(-3px); background:#fff0f5; border-color:var(--rose); }
+    .answer-result { min-height:28px; margin-top:22px; color:var(--rose); font-family:"Cormorant Garamond",serif; font-size:25px; }
+    .capsule {
+      margin-top:45px; display:grid; grid-template-columns:1fr 1fr; gap:25px;
+    }
+    .box { border:1px solid var(--line); border-radius:20px; padding:30px; background:var(--panel); }
+    textarea { width:100%; min-height:170px; resize:vertical; background:#fff; color:#4a2634; border:1px solid var(--line); border-radius:12px; padding:15px; font:14px Inter,sans-serif; outline:none; }
+    textarea:focus { border-color:var(--rose); }
+    .btn { margin-top:14px; border:1px solid rgba(217,166,169,.5); background:rgba(217,166,169,.1); color:#f2dfe0; border-radius:999px; padding:11px 18px; cursor:pointer; }
+    .saved { margin-top:14px; color:#8e8888; font-size:12px; min-height:20px; }
+
+    .timeline-card {
+      margin-top:45px; padding:38px 30px; text-align:center;
+      border:1px solid var(--line); border-radius:24px;
+      background:rgba(255,255,255,.82);
+      box-shadow:0 25px 80px rgba(180,90,120,.10);
+    }
+    .timeline-date {
+      color:var(--rose); font-size:12px; letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .timeline-line {
+      width:100%; max-width:760px; height:2px; margin:30px auto 14px;
+      background:#f1d4df; position:relative;
+    }
+    .timeline-line span {
+      display:block; width:18px; height:18px; border-radius:50%;
+      background:var(--rose); position:absolute; left:0; top:50%;
+      transform:translate(-50%,-50%);
+      box-shadow:0 0 0 7px #fff0f5;
+    }
+    .timeline-now { color:var(--muted); font-family:"Cormorant Garamond",serif; font-size:23px; }
+    .counter-grid {
+      display:grid; grid-template-columns:repeat(5,1fr); gap:12px;
+      margin:32px auto 24px; max-width:820px;
+    }
+    .counter-item {
+      padding:20px 10px; border:1px solid var(--line);
+      border-radius:16px; background:#fff;
+    }
+    .counter-item strong {
+      display:block; color:#6f3048; font-family:"Cormorant Garamond",serif;
+      font-size:38px; line-height:1;
+    }
+    .counter-item span {
+      display:block; color:var(--muted); font-size:10px;
+      letter-spacing:.13em; text-transform:uppercase; margin-top:8px;
+    }
+    .total-time {
+      color:#7b4057; font-size:13px; font-weight:500;
+      margin-top:15px;
+    }
+    .total-time span {
+      font-family:"Cormorant Garamond",serif; font-size:31px;
+      color:var(--rose);
+    }
+    .timeline-note {
+      max-width:650px; margin:20px auto 0; color:var(--muted);
+      font-size:13px;
+    }
+    .footer { text-align:center; padding:100px 20px 120px; border-top:1px solid var(--line); }
+    .footer .big { font-family:"Cormorant Garamond",serif; font-size:clamp(40px,7vw,80px); line-height:1; }
+    .footer p { color:#9a7180; max-width:500px; margin:20px auto 0; font-size:13px; }
+
+    @media (max-width: 760px) {
+      nav a { display:none; }
+      .photos, .letters-grid, .capsule { grid-template-columns:1fr; }
+      .photo-card img { height:430px; }
+      .counter-grid { grid-template-columns:repeat(2,1fr); }
+      .counter-item:last-child { grid-column:1 / -1; }
+      .timeline-card { padding:30px 18px; }
+      section { padding:80px 0; }
+      .letter p { font-size:20px; }
+      .modal-box { padding:32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">ANU CUTEST</div>
+  <div>
+    <a href="#letter">Letter</a>
+    <a href="#memories">Memories</a>
+    <a href="#letters">Letters</a>
+    <a href="#stars">Stars</a>
+  </div>
+</nav>
+
+<div class="music">
+  <button id="musicBtn" aria-label="Play music">▶</button>
+  <span id="musicText">Sajdaa · press play</span>
+  <audio id="song" loop preload="metadata">
+    <source src="./assets/sajdaa.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">a little something, made just for you</div>
+      <h1><span class="script">ANU CUTEST</span></h1>
+      <p>
+        I know life gets busy. Work, studies, long days, tired nights.
+        So there is no rush here. Take your time.
+      </p>
+      <div class="scroll">start here</div>
+    </div>
+  </section>
+
+  <section id="letter">
+    <div class="section-title">
+      <small>01 · no pressure</small>
+      I know you're busy.
+    </div>
+    <div class="letter">
+      <p>I know you have a lot going on. I know some days are full before you even get a chance to breathe.</p>
+      <p>I never want you to feel like you owe me your time. You don't.</p>
+      <p>I don't need every minute of your day. I just like knowing that somewhere in this huge world, there is you.</p>
+      <p>And even when we don't get to talk as much as we'd like, I hope you know that distance and busy days don't make you any less important to me.</p>
+      <p>So this is not a demand for more time. It's simply a little place where you can come whenever you have a moment.</p>
+      <div class="signature">— me</div>
+    </div>
+  </section>
+
+  <section id="memories">
+    <div class="section-title">
+      <small>02 · little pieces of you</small>
+      Some memories I wanted to keep.
+    </div>
+    
+    <div class="photos">
+      <div class="photo-card">
+        <img src="./assets/memory-01.png" alt="A childhood memory" onerror="this.style.display='none';this.parentElement.classList.add('image-error');">
+        <div class="photo-caption">Maybe we were meant for each other long before we ever knew it. Two little people, already sharing a frame, unknowingly becoming part of the same story. Maybe this is what destiny looks like. ❤️</div>
+      </div>
+      <div class="photo-card">
+        <img src="./assets/memory-02.png" alt="A quiet present-day moment" onerror="this.style.display='none';this.parentElement.classList.add('image-error');">
+        <div class="photo-caption">This is the day 4th September 2026 when my heart said she is the one for me, either her or no one. When you cried while seeing my letter, that was something I can't imagine. Thank you for changing my life in a positive way.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="letters">
+    <div class="section-title">
+      <small>03 · open when</small>
+      A few letters for different days.
+    </div>
+    <p class="copy">You don't have to open them all. Pick one whenever it feels right.</p>
+    <div class="letters-grid">
+      <div class="envelope" data-title="Open when you miss me" data-body="If you are reading this because you miss me, then let this be your little reminder: distance is only a measurement. It doesn't get to decide what a person means to you. I'm somewhere out here, probably thinking about you too.">
+        <div class="num">LETTER 01</div><h3>When you miss me</h3><p>For the days when the distance feels a little bigger.</p>
+      </div>
+      <div class="envelope" data-title="Open when you're exhausted" data-body="You don't have to be productive every second. Rest is not failure. Put the work down for a moment, breathe, drink some water, and let yourself be human. Tomorrow can handle tomorrow's problems.">
+        <div class="num">LETTER 02</div><h3>When you're exhausted</h3><p>For the days when everything feels like too much.</p>
+      </div>
+      <div class="envelope" data-title="Open when you can't sleep" data-body="If the night is too quiet and your thoughts are too loud, stay here for a minute. Nothing needs to be solved right now. Just breathe. Let the world wait until morning.">
+        <div class="num">LETTER 03</div><h3>When you can't sleep</h3><p>For one of those late nights.</p>
+      </div>
+      <div class="envelope" data-title="Open when something good happens" data-body="I hope you tell someone. And if you feel like telling me too, I would genuinely love to hear it. Your good days deserve to be celebrated, even the small ones.">
+        <div class="num">LETTER 04</div><h3>When you're happy</h3><p>For the moments worth sharing.</p>
+      </div>
+      <div class="envelope" data-title="Open when you doubt yourself" data-body="There will be days when you don't feel like you're doing enough. That doesn't mean it is true. Look at how far you've already come. One difficult day cannot erase all of that.">
+        <div class="num">LETTER 05</div><h3>When you doubt yourself</h3><p>A small reminder from someone who believes in you.</p>
+      </div>
+      <div class="envelope" data-title="Open when you need a reminder" data-body="You matter. Not because of what you achieve, not because of how available you are, and not because of what you can give someone else. Just because you are you.">
+        <div class="num">LETTER 06</div><h3>When you need a reminder</h3><p>Probably the most important one.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <small>04 · somewhere between here & there</small>
+      Far away. Still connected.
+    </div>
+    <div class="letter center">
+      <p>Different places.</p>
+      <p>Different schedules.</p>
+      <p>Different things happening every day.</p>
+      <p>And somehow, in between all of that, we found each other.</p>
+    </div>
+  </section>
+
+  <section id="stars">
+    <div class="section-title">
+      <small>05 · a sky full of little reminders</small>
+      Click a star.
+    </div>
+    <div class="stars" id="starField">
+      <div class="star-hint">there are little messages hidden here</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <small>06 · if you were here</small>
+      If we were in the same place right now...
+    </div>
+    <div class="letter">
+      <p>We'd probably get something to drink.</p>
+      <p>We'd argue about what to eat.</p>
+      <p>We'd laugh at something completely random.</p>
+      <p>And eventually we'd just sit somewhere and talk until we forgot to check the time.</p>
+      <div class="signature">Maybe someday.</div>
+    </div>
+  </section>
+
+  <section id="anu-question">
+    <div class="section-title">
+      <small>07 · one important question</small>
+      Is Anu happy with me?
+    </div>
+    <div class="question-card">
+      
+      <div class="answer-buttons">
+        <button class="answer-btn" data-answer="yes">Yes</button>
+        <button class="answer-btn" data-answer="again">No, try again</button>
+        <button class="answer-btn" data-answer="more">More than happy</button>
+      </div>
+      <div class="answer-result" id="answerResult"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <small>08 · a tiny time capsule</small>
+      Leave something for future you.
+    </div>
+    <p class="copy">This note is saved only in this browser. Write something you want to remember, then come back to it later.And if you want you can tell about his to abdullah as well.</p>
+    <div class="capsule">
+      <div class="box">
+        <textarea id="capsuleText" placeholder="Write something for future you..."></textarea>
+        <button class="btn" id="saveBtn">Save this little note</button>
+        <div class="saved" id="savedMsg"></div>
+      </div>
+      <div class="box">
+        <div class="eyebrow">one last thing</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:25px;margin-top:20px;color:#6b4655;">
+          I don't know exactly what we're going to call this.
+          Maybe we don't need to name it yet.
+        </p>
+        <p style="color:#856773;margin-top:18px;">
+          I just know that you're important to me. And I hope that, whenever life gets loud,
+          you remember there is someone quietly rooting for you.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section id="timeline">
+    <div class="section-title">
+      <small>09 · the beginning</small>
+      Since 2nd September 2026 - forever?
+    </div>
+    <div class="timeline-card">
+      <div class="timeline-date">02 · 09 · 2026 - forever?</div>
+      <div class="timeline-line"><span></span></div>
+      <div class="timeline-now">And the clock is still counting…</div>
+
+      <div class="counter-grid">
+        <div class="counter-item"><strong id="years">0</strong><span>Years</span></div>
+        <div class="counter-item"><strong id="days">0</strong><span>Days</span></div>
+        <div class="counter-item"><strong id="hours">0</strong><span>Hours</span></div>
+        <div class="counter-item"><strong id="minutes">0</strong><span>Minutes</span></div>
+        <div class="counter-item"><strong id="seconds">0</strong><span>Seconds</span></div>
+      </div>
+
+      <div class="total-time">
+        <span id="totalSeconds">0</span> seconds of knowing you
+      </div>
+
+      <p class="timeline-note">
+        
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="big">Come back whenever you need a reminder.</div>
+  <p>Made quietly, with a lot of thought, for one person.</p>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" id="closeModal">×</button>
+    <div class="eyebrow">a little letter</div>
+    <h2 id="modalTitle"></h2>
+    <p id="modalBody"></p>
+  </div>
+</div>
+
+<script>
+  // Background music
+  const song = document.getElementById('song');
+  const musicBtn = document.getElementById('musicBtn');
+  const musicText = document.getElementById('musicText');
+  let playing = false;
+  musicBtn.addEventListener('click', async () => {
+    try {
+      if (!playing) {
+        await song.play();
+        playing = true;
+        musicBtn.textContent = 'Ⅱ';
+        musicText.textContent = 'Sajdaa · playing';
+      } else {
+        song.pause();
+        playing = false;
+        musicBtn.textContent = '▶';
+        musicText.textContent = 'Sajdaa · paused';
+      }
+    } catch (e) {
+      musicText.textContent = 'Add assets/sajdaa.mp3 first';
+    }
+  });
+
+  // Letters modal
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.getElementById('modalBody');
+  document.querySelectorAll('.envelope').forEach(card => {
+    card.addEventListener('click', () => {
+      modalTitle.textContent = card.dataset.title;
+      modalBody.textContent = card.dataset.body;
+      modal.classList.add('open');
+    });
+  });
+  document.getElementById('closeModal').onclick = () => modal.classList.remove('open');
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+
+  // Interactive stars
+  const messages = [
+    "You are allowed to take your time.",
+    "Someone is quietly cheering for you.",
+    "You don't have to have everything figured out.",
+    "Your little wins count too.",
+    "I hope today is gentle with you.",
+    "You make ordinary conversations memorable.",
+    "Distance doesn't erase good memories.",
+    "You are more appreciated than you probably realize.",
+    "Rest. Breathe. Then try again.",
+    "There are still so many conversations left to have.",
+    "You deserve soft days too.",
+    "Some people become important without making a lot of noise.",
+    "This is your reminder to smile for no particular reason.",
+    "You matter, even on the days you don't feel productive.",
+    "Maybe someday, the distance will be a funny story we tell."
+  ];
+  const field = document.getElementById('starField');
+  messages.forEach((msg, i) => {
+    const s = document.createElement('button');
+    s.className = 'star';
+    s.style.left = (5 + Math.random() * 90) + '%';
+    s.style.top = (7 + Math.random() * 78) + '%';
+    s.style.animationDelay = (Math.random() * 2) + 's';
+    s.title = "click me";
+    s.onclick = () => {
+      alert(msg);
+    };
+    field.appendChild(s);
+  });
+
+  // Anu question
+  const answerResult = document.getElementById('answerResult');
+  document.querySelectorAll('.answer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.dataset.answer;
+      if (answer === 'yes') {
+        answerResult.textContent = "thank you anu";
+      } else if (answer === 'again') {
+        answerResult.textContent = "Abdullah must be crying somewhere";
+      } else {
+        answerResult.textContent = "ye baat aap abdullah ko khud btayein thanks:)";
+      }
+    });
+  });
+
+  // Live relationship timeline
+  // Pakistan Standard Time (UTC+05:00), fixed start: 2 September 2026, 7:00 PM.
+  const meetingTime = new Date('2026-09-02T19:00:00+05:00');
+
+  function updateTimeline() {
+    const now = new Date();
+    let elapsedMs = Math.max(0, now.getTime() - meetingTime.getTime());
+
+    const totalSeconds = Math.floor(elapsedMs / 1000);
+    let remaining = totalSeconds;
+
+    const years = Math.floor(remaining / (365.2425 * 24 * 60 * 60));
+    remaining -= Math.floor(years * 365.2425 * 24 * 60 * 60);
+
+    const days = Math.floor(remaining / (24 * 60 * 60));
+    remaining %= 24 * 60 * 60;
+
+    const hours = Math.floor(remaining / (60 * 60));
+    remaining %= 60 * 60;
+
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
+
+    document.getElementById('years').textContent = years.toLocaleString();
+    document.getElementById('days').textContent = days.toLocaleString();
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    document.getElementById('totalSeconds').textContent = totalSeconds.toLocaleString();
+  }
+
+  updateTimeline();
+  setInterval(updateTimeline, 1000);
+
+  // Local-only time capsule
+  const capsule = document.getElementById('capsuleText');
+  const savedMsg = document.getElementById('savedMsg');
+  const previous = localStorage.getItem('for-you-time-capsule');
+  if (previous) {
+    capsule.value = previous;
+    savedMsg.textContent = 'Your saved note is here.';
+  }
+  document.getElementById('saveBtn').onclick = () => {
+    localStorage.setItem('for-you-time-capsule', capsule.value);
+    savedMsg.textContent = 'Saved on this device. Keep this browser if you want to find it again.';
+  };
+</script>
+</body>
+</html>
