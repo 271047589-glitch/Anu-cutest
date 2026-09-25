@@ -237,7 +237,7 @@
   <button id="musicBtn" aria-label="Play music">▶</button>
   <span id="musicText">Sajdaa · press play</span>
   <audio id="song" loop preload="metadata">
-    <source src="./assets/sajdaa.mp3" type="audio/mpeg">
+    <source src="./sajdaa.mp3" type="audio/mpeg">
   </audio>
 </div>
 
@@ -277,11 +277,11 @@
     
     <div class="photos">
       <div class="photo-card">
-        <img src="./assets/memory-01.png" alt="A childhood memory" onerror="this.style.display='none';this.parentElement.classList.add('image-error');">
+        <img src="./memory-01.png" alt="A childhood memory" onerror="this.style.display='none';this.parentElement.classList.add('image-error');">
         <div class="photo-caption">Maybe we were meant for each other long before we ever knew it. Two little people, already sharing a frame, unknowingly becoming part of the same story. Maybe this is what destiny looks like. ❤️</div>
       </div>
       <div class="photo-card">
-        <img src="./assets/memory-02.png" alt="A quiet present-day moment" onerror="this.style.display='none';this.parentElement.classList.add('image-error');">
+        <img src="./memory-02.png" alt="A quiet present-day moment" onerror="this.style.display='none';this.parentElement.classList.add('image-error');">
         <div class="photo-caption">This is the day 4th September 2026 when my heart said she is the one for me, either her or no one. When you cried while seeing my letter, that was something I can't imagine. Thank you for changing my life in a positive way.</div>
       </div>
     </div>
@@ -457,7 +457,7 @@
         musicText.textContent = 'Sajdaa · paused';
       }
     } catch (e) {
-      musicText.textContent = 'Add assets/sajdaa.mp3 first';
+      musicText.textContent = 'Add sajdaa.mp3 first';
     }
   });
 
